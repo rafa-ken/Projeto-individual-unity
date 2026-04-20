@@ -1,20 +1,26 @@
 using UnityEngine;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public  GameObject endgamepanel;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject endgamepanel;
+    public TextMeshProUGUI finalTimeText;
+    public TextMeshProUGUI scoreText;
+
     void Start()
     {
-        
+        GameController.Init();
+        endgamepanel.SetActive(false);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        scoreText.text = "Ossos: " + GameController.collected + " / 4";
+        
         if (GameController.gameover)
         {
             endgamepanel.SetActive(true);
+            finalTimeText.text = "Tempo: " + Mathf.FloorToInt(Timer.finalTime) + "s";
         }
     }
 }

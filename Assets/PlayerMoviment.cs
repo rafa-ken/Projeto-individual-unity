@@ -1,12 +1,10 @@
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMoviment : MonoBehaviour
 {
     private Rigidbody2D rb;
-    AudioSource audio;
-    public float speed;
+    private AudioSource audio;
+    public float speed = 8f;
 
     void Start()
     {
@@ -16,21 +14,31 @@ public class PlayerMoviment : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameController.gameover)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
-        rb.MovePosition(rb.position + movement.normalized * speed * Time.fixedDeltaTime);
+        if (movement.magnitude > 1f)
+            movement.Normalize();
+
+        rb.linearVelocity = movement * speed;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "coletavel")
+        if (other.CompareTag("coletavel") && other.gameObject.activeSelf)
         {
             audio.Play();
             GameController.Collecte();
+            other.gameObject.SetActive(false);
             Destroy(other.gameObject);
         }
     }
-}
+}   
