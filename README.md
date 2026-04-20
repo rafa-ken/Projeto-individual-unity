@@ -7,5 +7,6 @@ Jogo 2D onde um cachorro deve coletar ossos enquanto desvia de gatos.
 - Colete todos os ossos para vencer
 
 ## Créditos
-- Som de moeda: [nome do site que baixou]
+- Som de moeda: https://freesound.org/people/pierrecartoons1979/sounds/90049/
+- Som do jogo: https://freesound.org/people/pierrecartoons1979/sounds/90049/
 - Desenvolvido por: Rafael
